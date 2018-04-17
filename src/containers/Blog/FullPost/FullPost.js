@@ -10,8 +10,16 @@ class FullPost extends Component {
     }
 
     componentDidMount () {
-        const postId = this.props.match.params.id;
         console.log(this.props);
+        this.loadPostData();
+    }
+
+    componentDidUpdate () {
+        this.loadPostData();
+    }
+
+    loadPostData () {
+        const postId = +this.props.match.params.id; // string, need to convert to number
         if (postId) {
             if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== postId)) {
                 axios.get('/posts/' + postId)
