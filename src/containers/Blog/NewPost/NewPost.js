@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+
 import axios from 'axios';
 
 import './NewPost.css';
@@ -18,6 +20,7 @@ class NewPost extends Component {
         };
         axios.post('/posts', post)
             .then(response => {
+                this.props.history.push('/'); // go to /
                 console.log(response)
             });
     }

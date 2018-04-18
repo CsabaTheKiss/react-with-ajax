@@ -2,9 +2,16 @@ import React, { Component } from 'react';
 // import axios from '../../axios';
 import { Route, NavLink, Switch } from 'react-router-dom';
 
-import Posts from './Posts/Posts';
-import NewPost from './NewPost/NewPost';
 import './Blog.css';
+
+import Posts from './Posts/Posts';
+// for lazy loading a component
+import asyncComponent from '../../hoc/asyncComponent';
+// import NewPost from './NewPost/NewPost';
+
+const AsyncNewPost = asyncComponent(() => {
+    return import('./NewPost/NewPost'); 
+});
 
 class Blog extends Component {
 
@@ -29,7 +36,7 @@ class Blog extends Component {
                 {/* <Route path="/" exact render={() => <h1>Home</h1>} /> */}
                 {/* Routes are rendered from top to bottom */}
                 <Switch> {/* Only the first matched route will render */}
-                    <Route path="/new-post" component={NewPost} />
+                    <Route path="/new-post" component={AsyncNewPost} />
                     <Route path="/" component={Posts} />
                 </Switch>
             </div>
